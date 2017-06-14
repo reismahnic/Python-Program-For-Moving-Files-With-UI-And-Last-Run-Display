@@ -37,16 +37,16 @@ def create_db(self):
     conn.commit()
     conn.close()
     count_records()
-##    first_run(self)
-##
-##def first_run(self):
-##    conn = sqlite3.connect('db_transferLog.db')
-##    cur = conn.cursor()
-##    cur,count = count_records(cur)
-##    if count < 1:
-##        cur.execute("""INSERT INTO tbl_transferLog (col_logTime) VALUES (?)""", ('08/06/17 19-09',))
-##        conn.commit()
-##    conn.close()
+    first_run(self)
+
+def first_run(self):
+    conn = sqlite3.connect('db_transferLog.db')
+    cur = conn.cursor()
+    cur,count = count_records(cur)
+    if count < 1:
+        cur.execute("""INSERT INTO tbl_transferLog (col_logTime) VALUES (?)""", ('08/06/17 19-09',))
+        conn.commit()
+    conn.close()
 
 def count_records():
     conn = sqlite3.connect('db_transferLog.db')
@@ -107,8 +107,11 @@ def addToList(self):
 def displayLast(self):
     conn = sqlite3.connect('db_transferLog.db')
     cur = conn.cursor()
-    cur.execute("""SELECT col_logTime FROM tbl_transferLog WHERE ID = (SELECT MAX(ID) FROM tbl_transferLog);""")
-    varLastTime = cur.fetchall()    
-    for data in varLastTime:
-        self.lbl_lastUse.config(text = 'Last Run: ' + (str(varLastTime[0])))
-        print(str(varLastTime))
+    try:
+        cur.execute("""SELECT col_logTime FROM tbl_transferLog WHERE ID = (SELECT MAX(ID) FROM tbl_transferLog);""")
+        varLastTime = cur.fetchall()    
+        for data in varLastTime:
+            self.lbl_lastUse.config(text = 'Last Run: ' + (str(varLastTime[0])))
+            print(str(varLastTime))
+    except:
+        self.lbl_lastUse.config(text = 'The database is empty.')

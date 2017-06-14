@@ -47,7 +47,7 @@ class ParentWindow(Frame):
         self.btn_moveFiles = tk.Button(self.master,width=12,height=2,text='Move Files',command=lambda: UIForFileMovementFunc.setFileSource(self))
         self.btn_moveFiles.grid(row=8,column=2,padx=(25,0),pady=(45,10),sticky=W)
 
-        self.lbl_lastUse = tk.Label(self.master,text='Last Use: ')
+        self.lbl_lastUse = tk.Label(self.master,text='Last Use: None')
         self.lbl_lastUse.grid(row=1,column=0,rowspan=1,columnspan=2,padx=(30,40),pady=(0,0),sticky=N+E+W)
             
         # Instantiate the Tkinter menu dropdown object
